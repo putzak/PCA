@@ -1,6 +1,4 @@
 # Import dataset(s)
-temp = list.files(pattern="\\.csv$")
-myfiles = lapply(temp, read_csv)
 custom_colnames <- c(
   "#", 
   "Date", 
@@ -22,8 +20,36 @@ custom_colnames <- c(
   "Counter", 
   "Tank LVL"
 )
+
+# Adjust parameter selection variable
+parameterSelection_name <- NA
+for (i in 1:length(parameterSelection)) {
+  parameterSelection_name <- append(
+    parameterSelection,
+    as.name(parameterSelection[i])
+  )
+}
+parameterSelection_name <- parameterSelection_name[
+  -length(parameterSelection_name)
+]
+parameterSelection_name <- parameterSelection_name[
+  -length(parameterSelection_name)
+]
+
+# Importall
+if (importAll == T) {
+temp = list.files(pattern="\\.csv$")
+myfiles = lapply(temp, read_csv)
+
 myfiles <- lapply(myfiles, setNames, nm = custom_colnames)
 for (i in 1:length(myfiles)) {
   myfiles[[i]] <- myfiles[[i]] %>%
-    select(-`#`:-Time, -`Inj. 5`: -`Inj. 6`)
+    select(-`#`:-Time, -`Inj. 5`: -`Inj. 6`, -Closed)
+}
+
+# Import 1
+} else {
+  myfile <- read_csv(file = fileName) # Select file to import
+  colnames(myfile) <- custom_colnames
+  myfile <- myfile[, names(myfile) %in% as.character(parameterSelection_name)]
 }

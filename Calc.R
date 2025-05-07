@@ -1,22 +1,31 @@
 #calculate principal components
-results <- prcomp(myfiles[[1]], scale = TRUE)
-
+if (importAll == T) {
+  results <- prcomp(myfiles[[1]], scale = TRUE)
+  calcData <- myfiles[[1]]
+} else {
+  results <- prcomp(myfile_yield, scale = TRUE)
+  calcData <- myfile_yield
+}
 #reverse the signs
 results$rotation <- -1*results$rotation
-
-#display principal components
-results$rotation
 
 #reverse the signs of the scores
 results$x <- -1*results$x
 
-#display the first six scores
-head(results$x)
-
 # ggplot ggfortify
-autoplot(results, data = myfiles[[1]], 
-         loadings = TRUE, loadings.label = TRUE, loadings.label.size = 3)
+titleName <- gsub(pattern = ".csv", "", fileName)
+subTitle <- paste0(parameterSelection_name, collapse = " ")
+plot <- autoplot(results, 
+                 data = calcData, 
+                 loadings = TRUE, 
+                 loadings.label = TRUE, 
+                 loadings.label.size = 3,
+                 title = titleName
+                 ) + ggtitle(
+                   titleName, 
+                   subtitle = subTitle 
+                   )
 
 # Enhanced autoplot
-autoplot(results, data = myfiles[[1]], colour = 1,
-         loadings = TRUE, loadings.label = TRUE, loadings.label.size = 4, label = T)
+#autoplot(results, data = calcData, colour = 1,
+#         loadings = TRUE, loadings.label = TRUE, loadings.label.size = 4, label = T)

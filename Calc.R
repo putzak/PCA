@@ -15,13 +15,14 @@ results$x <- -1*results$x
 # ggplot ggfortify
 titleName <- gsub(pattern = ".csv", "", fileName)
 subTitle <- paste0(parameterSelection_name, collapse = " ")
+subTitle <- gsub("Counter", "", subTitle)
 plot <- autoplot(results, 
                  data = calcData, 
                  loadings = TRUE, 
                  loadings.label = TRUE, 
-                 loadings.label.size = 6,
+                 loadings.label.size = 3,
                  loadings.colour='red',
-                 label = FALSE,
+                 loadings.label.repel=TRUE,
                  title = titleName
                  ) + ggtitle(
                    titleName, 

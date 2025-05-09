@@ -20,3 +20,8 @@ yieldData <- yieldData %>%
          )
 myfile_yield <- merge(myfile, yieldData)
 myfile_yield <- myfile_yield[complete.cases(myfile_yield),]
+if (collapseData == T) {
+  myfile_yield <- myfile_yield %>%
+    group_by(Counter) %>%
+    filter(row_number()==1)
+}

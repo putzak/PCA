@@ -3,7 +3,7 @@ if (importAll == T) {
   results <- prcomp(myfiles[[1]], scale = TRUE)
   calcData <- myfiles[[1]]
 } else {
-  results <- prcomp(myfile_yield, scale = TRUE)
+  results <- prcomp(myfile_yield[,-1], scale = TRUE)
   calcData <- myfile_yield
 }
 #reverse the signs
@@ -19,7 +19,9 @@ plot <- autoplot(results,
                  data = calcData, 
                  loadings = TRUE, 
                  loadings.label = TRUE, 
-                 loadings.label.size = 3,
+                 loadings.label.size = 6,
+                 loadings.colour='red',
+                 label = FALSE,
                  title = titleName
                  ) + ggtitle(
                    titleName, 

@@ -46,7 +46,7 @@ source("Import_yield.R")
 source("Calc.R")
 
 # Export plots
-pdf(file=paste0(titleName, ".pdf", sep=""))
+pdf(file=paste0(titleName, "_", parameterSelection[1], ".pdf", sep=""))
 par(mfrow = c(2,2))
 # Correlation data analysis
 pairs.panels(
@@ -68,5 +68,17 @@ plot
 dev.off()
 
 # Export results data
-capture.output(results, file = paste0(titleName, "_results.csv"))
-capture.output(summary(results), file = paste0(titleName, "_summary.csv"))
+capture.output(results, file = paste0(
+  titleName, 
+  "_results_", 
+  parameterSelection[1], 
+  ".csv", 
+  sep ="")
+  )
+capture.output(summary(results), file = paste0(
+  titleName, 
+  "_summary_", 
+  parameterSelection[1], 
+  ".csv", 
+  sep ="")
+)

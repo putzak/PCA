@@ -1,7 +1,6 @@
 # Import
-yieldData <- read_csv2(
-  "Test results/TEST1 2025-04-25 - Biogen - dag 1 - machine data collection.csv",
-)
+yieldFileName <- paste0("Y_", fileName, sep = "")
+yieldData <- read_csv2(file = yieldFileName)
 
 yieldData <- yieldData %>%
   select(Counter, 

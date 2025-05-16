@@ -9,7 +9,7 @@ library(psych)
 
 # Variables
 collapseData <- T                 # Set to T for 1 datapoint per cycle
-fileName = "dag0_1_5_0.csv"       # Select file to import, only used 
+fileName = "dag0_1_5_1.csv"       # Select file to import, only used 
                                   # if importAll <- F
                                   # yield data should be fileName prepended
                                   # With "Y_"
@@ -19,14 +19,14 @@ parameterSelection <- c(          # Comment out any parameters to be excluded.
 #  "#", 
 #  "Date", 
 #  Time, 
-  "Inj. 1", 
-#  "Inj. 2", 
-#  "Inj. 3", 
-#  "Inj. 4", 
+ "Inj. 1", 
+ "Inj. 2", 
+ "Inj. 3", 
+ "Inj. 4", 
 #  "Inj. 5", 
 #  "Inj. 6", 
 #  "Mach. Press.", 
-  "Tank. Press.", 
+#  "Tank. Press.", 
   "IFM. Press.", 
 #  "Temp. MS", 
 #  "Temp. FS", 
@@ -34,7 +34,7 @@ parameterSelection <- c(          # Comment out any parameters to be excluded.
   "Temp. Mix", 
 #  "Cond. Mix", 
   "Counter", 
-  "Tank LVL",
+#  "Tank LVL",
   "Last" # Don't remove
 )
 
@@ -46,7 +46,7 @@ source("Import_yield.R")
 source("Calc.R")
 
 # Export plots
-pdf(file=paste0(titleName, "_", parameterSelection[1], ".pdf", sep=""))
+pdf(file=paste0(titleName, ".pdf", sep=""))
 par(mfrow = c(2,2))
 # Correlation data analysis
 pairs.panels(
@@ -57,13 +57,13 @@ pairs.panels(
   main="Correlation anaysis"
 )
 # Orthogonality analysis
-pairs.panels(
-  results$x,             
-  gap = 0,             
-  bg = c("red", "yellow", "blue"),             
-  pch=21,
-  main="Orthogonality analysis"
-)
+#pairs.panels(
+#  results$x,             
+#  gap = 0,             
+#  bg = c("red", "yellow", "blue"),             
+#  pch=21,
+#  main="Orthogonality analysis"
+#)
 plot
 dev.off()
 
@@ -71,14 +71,12 @@ dev.off()
 capture.output(results, file = paste0(
   titleName, 
   "_results_", 
-  parameterSelection[1], 
   ".csv", 
   sep ="")
   )
 capture.output(summary(results), file = paste0(
   titleName, 
   "_summary_", 
-  parameterSelection[1], 
   ".csv", 
   sep ="")
 )
